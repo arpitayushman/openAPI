@@ -1,39 +1,78 @@
 const express = require('express');
+const axios = require('axios');
 const router = express.Router();
 const fetchuser = require('../middleware/fetchuser');
 const Complaints = require('../models/complaint');
+const Company = require('../models/company');
+const cByc = require('../models/complaintDbComp');
 const { body, validationResult } = require('express-validator');
+const fetchcompany = require('../middleware/fetchcompany');
+const company = require('../models/company');
+
 
 //Route 1: Get all the complaints using get request
-router.get('/fetchallcomplaints',fetchuser , async (req,res)=>{
-    try{
+router.get('/fetchallcomplaints', fetchuser, async (req, res) => {
+    try {
 
-        const complaints = await Complaints.find({client : req.client.id});
+        const complaints = await Complaints.find({ client: req.client.id });
         res.json(complaints);
     }
-    catch(error){
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
+router.get('/fetchCC', fetchcompany, async (req, res) => {
+    try {
+
+        const complaints = await cByc.find({ company: req.company.id });
+        res.json(complaints);
+    }
+    catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
 });
 
 //Route 2 Add a new note using : Post: "/api/auth/addnote"
-router.post('/addnote', fetchuser,[
-    body('detailOne', 'Enter a valid detailOne').isLength({min : 3}),
-    body('detailTwo', 'DetailTwo must be atleast 5 characters').isLength({min : 5})
-], async(req, res)=>{
-    try{
-    const { detailOne,detailTwo,detailThree,detailFour } = req.body;
+router.post('/addnote', fetchuser, [
+    body('detailOne', 'Enter a valid detailOne').isLength({ min: 3 }),
+    body('detailTwo', 'DetailTwo must be atleast 5 characters').isLength({ min: 5 })
+], async (req, res) => {
+    try {
+        //selecttedComany is the API provided by the company while registering
+        const { detailOne, detailTwo, detailThree, detailFour, selectedCompany } = req.body;
+        const selectedApi = req.body.selectedCompany; //unique api of the selected company
+        // let selectedApi = "https://"
         let errors = validationResult(req);
-        if(!errors.isEmpty()){
-            return res.status(400).json({errors : errors.array()});
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
         }
         const note = new Complaints({
-            detailOne,detailTwo,detailThree,detailFour, client: req.client.id
+            detailOne, detailTwo, detailThree, detailFour, selectedCompany, client: req.client.id
         })
         const savedNote = await note.save();
+        const companyNote = new cByc({
+            company: detailOne, detailOne, detailTwo, detailThree, detailFour, selectedCompany, 
+        })
+        const savedCompanyNote = await companyNote.save();
+        
+        // const savedComplaintVisibleToCompany = await 
+
+
+        axios.post(selectedApi, note)
+            .then((res) => {
+                console.log(`Status: ${res.status}`);
+                // console.log('Body: ', res.data);
+                let body = res.note;
+                console.log(body);
+            }).catch((err) => {
+                console.error(err);
+            });
+
+
         res.json(savedNote);
-    }catch(error){
+    } catch (error) {
         console.error(error.message);
         res.status(500).send("Internal Server Error");
     }
@@ -41,45 +80,3 @@ router.post('/addnote', fetchuser,[
 
 
 module.exports = router;
-// const express = require('express');
-// const router = express.Router();
-// const fetchuser = require('../middleware/fetchuser');
-// const Note = require('../models/Note');
-// const { body, validationResult } = require('express-validator');
-
-// // ROUTE 1: Get All the Complaints using: GET "/api/complaints/getuser". Login required
-// router.get('/fetchallnotes', fetchuser, async (req, res) => {
-//     try {
-//         const complaints = await Note.find({ client: req.client.id });
-//         res.json(complaints)
-//     } catch (error) {
-//         console.error(error.message);
-//         res.status(500).send("Internal Server Error");
-//     }
-// })
-
-// // ROUTE 2: Add a new Note using: POST "/api/complaints/addnote". Login required
-// router.post('/addnote', fetchuser, [
-//     body('title', 'Enter a valid title').isLength({ min: 3 }),
-//     body('description', 'Description must be atleast 5 characters').isLength({ min: 5 }),], async (req, res) => {
-//         try {
-//             const { title, description, tag } = req.body;
-
-//             // If there are errors, return Bad request and the errors
-//             const errors = validationResult(req);
-//             if (!errors.isEmpty()) {
-//                 return res.status(400).json({ errors: errors.array() });
-//             }
-//             const note = new Note({
-//                 title, description, tag, client: req.client.id
-//             })
-//             const savedNote = await note.save()
-
-//             res.json(savedNote)
-
-//         } catch (error) {
-//             console.error(error.message);
-//             res.status(500).send("Internal Server Error");
-//         }
-//     })
-//     module.exports = router

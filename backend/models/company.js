@@ -19,7 +19,7 @@ const companySchema = new Schema({
         type: String,
         required:true
     },
-    detailTwo:{
+    submitApi:{
         type: String,
         required: true
     },

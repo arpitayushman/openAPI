@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const complaintSchema = new Schema({
-    client: {
+    company: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'client'
+        ref: 'company'
     },
     detailOne: {
         type: String,
@@ -30,4 +30,4 @@ const complaintSchema = new Schema({
         default: Date.now
     }
 });
-module.exports = mongoose.model('complaints', complaintSchema);
+module.exports = mongoose.model('complaintDbComp', complaintSchema);

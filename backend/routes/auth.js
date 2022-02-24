@@ -12,7 +12,7 @@ const { body, validationResult } = require('express-validator');
 //Route - 1
 router.post('/createclient', [
     body('email', 'Enter Valid Email').isEmail(),
-    body('phone','Enter a valid contact number').isLength(10),
+    body('phone', 'Enter a valid contact number').isLength(10),
     body('password', 'Password must be greater than 3').isLength({ min: 3 })
 ], async (req, res) => {
     //if there are errors, return bad request
@@ -112,9 +112,9 @@ router.post('/getclient', fetchuser, async (req, res) => {
 //Route- 4 Create company profile in database
 router.post('/createcompany', [
     body('email', 'Enter Valid Email').isEmail(),
-    body('phone','Enter a valid contact number').isLength(10),
+    body('phone', 'Enter a valid contact number').isLength(10),
     body('detailOne', 'Enter valid datailOne').isLength(3),
-    body('detailTwo', 'Enter valid datailTwo').isLength(3),
+    body('submitApi', 'Enter a valid url').isURL(),
     body('password', 'Password must be greater than 3').isLength({ min: 3 })
 ], async (req, res) => {
     //if there are errors, return bad request
@@ -137,7 +137,7 @@ router.post('/createcompany', [
             email: req.body.email,
             phone: req.body.phone,
             detailOne: req.body.detailOne,
-            detailTwo: req.body.detailTwo,
+            submitApi: req.body.submitApi,
             password: secPass
         });
         const data = {
