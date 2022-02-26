@@ -15,7 +15,7 @@ const companySchema = new Schema({
         required: true,
         unique: true
     },
-    detailOne:{
+    address:{
         type: String,
         required:true
     },

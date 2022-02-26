@@ -14,7 +14,7 @@ const company = require('../models/company');
 router.get('/fetchallcomplaints', fetchuser, async (req, res) => {
     try {
 
-        const complaints = await Complaints.find({ client: req.client.id });
+        const complaints = await Complaints.find({ user: req.user.id });
         res.json(complaints);
     }
     catch (error) {
@@ -36,12 +36,37 @@ router.get('/fetchCC', fetchcompany, async (req, res) => {
 
 //Route 2 Add a new note using : Post: "/api/auth/addnote"
 router.post('/addnote', fetchuser, [
-    body('detailOne', 'Enter a valid detailOne').isLength({ min: 3 }),
-    body('detailTwo', 'DetailTwo must be atleast 5 characters').isLength({ min: 5 })
+    body('petitionerEmail', 'Enter a valid detailOne').isLength({ min: 3 }),
+    body('petitionerPhone', 'DetailTwo must be atleast 5 characters').isLength({ min: 5 })
 ], async (req, res) => {
     try {
         //selecttedComany is the API provided by the company while registering
-        const { detailOne, detailTwo, detailThree, detailFour, selectedCompany } = req.body;
+        const { selectedCompany,
+            requestId,
+            state,
+            disputeType,
+            petiotionerName,
+            petitionerOrganisation,
+            petitionerPhone,
+            petitionerEmail,
+            petitionerAdvocateName,
+            petitionerAdvocatePhone,
+            petitionerAdvocateEmail,
+            respondentName,
+            respondentPhone,
+            respondentEmail,
+            respondentAddress,
+            respondentAdvocateName,
+            respondentAdvocatePhone,
+            respondentAdvocateEmail,
+            relationshipType,
+            lastOfferDate,
+            defaults,
+            legalStatus,
+            issues,
+            loanAmount,
+            emi,
+            otherInfo } = req.body;
         const selectedApi = req.body.selectedCompany; //unique api of the selected company
         // let selectedApi = "https://"
         let errors = validationResult(req);
@@ -49,26 +74,78 @@ router.post('/addnote', fetchuser, [
             return res.status(400).json({ errors: errors.array() });
         }
         const note = new Complaints({
-            detailOne, detailTwo, detailThree, detailFour, selectedCompany, client: req.client.id
+            selectedCompany,
+            requestId,
+            state,
+            disputeType,
+            petiotionerName,
+            petitionerOrganisation,
+            petitionerPhone,
+            petitionerEmail,
+            petitionerAdvocateName,
+            petitionerAdvocatePhone,
+            petitionerAdvocateEmail,
+            respondentName,
+            respondentPhone,
+            respondentEmail,
+            respondentAddress,
+            respondentAdvocateName,
+            respondentAdvocatePhone,
+            respondentAdvocateEmail,
+            relationshipType,
+            lastOfferDate,
+            defaults,
+            legalStatus,
+            issues,
+            loanAmount,
+            emi,
+            otherInfo,
+            client: req.client.id
         })
         const savedNote = await note.save();
         const companyNote = new cByc({
-            company: detailOne, detailOne, detailTwo, detailThree, detailFour, selectedCompany, 
+            company: selectedCompany,
+            selectedCompany,
+            requestId,
+            state,
+            disputeType,
+            petiotionerName,
+            petitionerOrganisation,
+            petitionerPhone,
+            petitionerEmail,
+            petitionerAdvocateName,
+            petitionerAdvocatePhone,
+            petitionerAdvocateEmail,
+            respondentName,
+            respondentPhone,
+            respondentEmail,
+            respondentAddress,
+            respondentAdvocateName,
+            respondentAdvocatePhone,
+            respondentAdvocateEmail,
+            relationshipType,
+            lastOfferDate,
+            defaults,
+            legalStatus,
+            issues,
+            loanAmount,
+            emi,
+            otherInfo
         })
         const savedCompanyNote = await companyNote.save();
-        
+
         // const savedComplaintVisibleToCompany = await 
 
 
-        axios.post(selectedApi, note)
-            .then((res) => {
-                console.log(`Status: ${res.status}`);
-                // console.log('Body: ', res.data);
-                let body = res.note;
-                console.log(body);
-            }).catch((err) => {
-                console.error(err);
-            });
+        // axios.post(selectedApi, note)
+        //     .then((res) => {
+        //         console.log(`Status: ${res.status}`);
+        //         // console.log('Body: ', res.data);
+        //         let body = res.note;
+        //         console.log(body);
+        //     }).catch((err) => {
+        //         console.error(err);
+        //     });
 
 
         res.json(savedNote);
