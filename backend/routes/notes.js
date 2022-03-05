@@ -158,7 +158,7 @@ router.post('/addnote', fetchuser, [
 });
 
 
-
+// Route 3
 // ROUTE 3: Update an existing Note using: PUT "/api/notes/updatcomplaint". Login required
 router.put('/updatecomplaint/:id', fetchcompany, async (req, res) => {
     const { legalStatus } = req.body;
