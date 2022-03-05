@@ -8,13 +8,14 @@ const cByc = require('../models/complaintDbComp');
 const { body, validationResult } = require('express-validator');
 const fetchcompany = require('../middleware/fetchcompany');
 const company = require('../models/company');
+// const complaint = require('../models/complaint');
 
 
 //Route 1: Get all the complaints using get request
 router.get('/fetchallcomplaints', fetchuser, async (req, res) => {
     try {
 
-        const complaints = await Complaints.find({ user: req.user.id });
+        const complaints = await Complaints.find({ client: req.client.id });
         res.json(complaints);
     }
     catch (error) {
@@ -25,11 +26,12 @@ router.get('/fetchallcomplaints', fetchuser, async (req, res) => {
 router.get('/fetchCC', fetchcompany, async (req, res) => {
     try {
 
-        const complaints = await cByc.find({ company: req.company.id });
+        let complaints = await cByc.find({ company: req.company.id });
         res.json(complaints);
     }
     catch (error) {
         console.error(error.message);
+        console.log(error.stack);
         res.status(500).send("Internal Server Error");
     }
 });
@@ -154,6 +156,75 @@ router.post('/addnote', fetchuser, [
         res.status(500).send("Internal Server Error");
     }
 });
+
+
+
+// ROUTE 3: Update an existing Note using: PUT "/api/notes/updatcomplaint". Login required
+router.put('/updatecomplaint/:id', fetchcompany, async (req, res) => {
+    const { legalStatus } = req.body;
+    try {
+        // Create a newNote object
+        const newNote = {};
+        if (legalStatus) { newNote.legalStatus = legalStatus };
+        // if (description) { newNote.description = description };
+        // if (tag) { newNote.tag = tag };
+
+        // Find the note to be updated and update it
+        let note = await cByc.findById(req.params.id);
+        // let reqId = note.requestId;
+        // console.log(reqId);
+        if (!note) { return res.status(404).send("Not Found") }
+
+        if (note.company.toString() !== req.company.id) {
+            return res.status(401).send("Not Allowed");
+        }
+        console.log(req.params.id);
+        note = await cByc.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true })
+        res.json({ note });
+        // const compNote = {};
+        // if (loanAmount) { compNote.loanAmount = loanAmount };
+        // let companyNote = await cByc.findOne({reqId});
+        // let idOfCompanyComplaint = companyNote._id;
+        // idOfCompanyComplaint+="";
+        // console.log(idOfCompanyComplaint+"");
+        // console.log(companyNote.respondentName);
+        // note = await cByc.findByIdAndUpdate(idOfCompanyComplaint, { $set: compNote }, { new: true })
+        
+
+
+    } catch (error) {
+        error.trace
+        console.error(error.message);
+        console.log(error.stack);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+
+//ROUTE 4: FETCHING Case Status by requestId
+
+
+router.post('/fetchcasestatus', fetchuser, async (req, res) => {
+    const { requestId } = req.body;
+    try {
+        const complaint = await cByc.findOne({requestId});
+        let status = complaint.legalStatus;
+        if(status.length == 0){
+            status = "Case Status is not yet updated by the Service Provider, Kindly wait for 24 hours.";
+        }
+        console.log(status);
+        res.json(status);
+    }
+    catch (error) {
+        console.error(error.message);
+        console.log(error.stack);
+        res.status(500).send("Internal Server Error");
+    }
+});
+
+
+
+
 
 
 module.exports = router;

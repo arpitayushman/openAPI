@@ -1,0 +1,308 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "openAPI",
+    "dateExported": "2022-02-28T14:15:51.865Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "containerId": "",
+            "sortNum": 10000,
+            "name": "Authentication",
+            "_id": "388315a2-12b4-4304-b691-84f13980e211",
+            "created": "2022-02-12T09:32:51.836Z"
+        },
+        {
+            "containerId": "",
+            "sortNum": 20000,
+            "name": "Notes",
+            "_id": "4e8f75f2-ffd5-4802-89be-a9f210327c11",
+            "created": "2022-02-12T09:32:51.836Z"
+        }
+    ],
+    "requests": [
+        {
+            "containerId": "388315a2-12b4-4304-b691-84f13980e211",
+            "sortNum": 20000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "Create a new User",
+            "url": "localhost:5000/api/auth/createclient",
+            "method": "POST",
+            "modified": "2022-02-27T17:41:24.361Z",
+            "created": "2022-02-12T09:32:51.836Z",
+            "_id": "1a1cc5e2-5b77-496c-ba6c-c3bb7fc62a92",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\" : \"Paul Adams\",\n    \"email\" : \"pauladams@gmail.com\",\n    \"phone\" : \"9847364738\",\n    \"password\":\"password\",\n    \"address\":\"delhi\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "4e8f75f2-ffd5-4802-89be-a9f210327c11",
+            "sortNum": 25000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnQiOnsiaWQiOiI2MjFiYjdjMzEzNWYyNzdkMzViNGZmY2MifSwiaWF0IjoxNjQ1OTgzNzE4fQ.FJ61TQRuszEQ0ePrsHY1GpcH_HT3eh5Aq5usRzC3mG4"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "File New Complaint",
+            "url": "localhost:5000/api/notes/addnote",
+            "method": "POST",
+            "modified": "2022-02-27T19:37:42.023Z",
+            "created": "2022-02-12T09:32:51.836Z",
+            "_id": "a9db48df-e4f6-4a83-9c51-748948aa900c",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"selectedCompany\":\"621bba9ea751bf6620c2ae21\",\n            \"requestId\":\"1004\",\n            \"state\":\"MADHYA PRADESh\",\n            \"disputeType\":\"criminal\",\n            \"petiotionerName\":\"kotak\",\n            \"petitionerOrganisation\":\"this\",\n            \"petitionerPhone\":\"87678778898\",\n            \"petitionerEmail\":\"this@gmail.com\",\n            \"petitionerAdvocateName\":\"AB BACGANS\",\n            \"petitionerAdvocatePhone\":\"878697584\",\n            \"petitionerAdvocateEmail\":\"\",\n            \"respondentName\":\"MRDDDD\",\n            \"respondentPhone\":\"dummy number\",\n            \"respondentEmail\":\"dummy email\",\n            \"respondentAddress\":\"this is my address\",\n            \"respondentAdvocateName\":\"this is my advocate name\",\n            \"respondentAdvocatePhone\":\"857589584\",\n            \"respondentAdvocateEmail\":\"yhfhfiuwni@gmail.com\",\n            \"relationshipType\":\"sales\",\n            \"lastOfferDate\":\"10-12-11\",\n            \"defaults\":\"None\",\n            \"legalStatus\":\"\",\n            \"issues\":\"\",\n            \"loanAmount\":\"\",\n            \"emi\":\"\",\n            \"otherInfo\":\"this\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "388315a2-12b4-4304-b691-84f13980e211",
+            "sortNum": 30000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "User Login",
+            "url": "localhost:5000/api/auth/clientlogin",
+            "method": "POST",
+            "modified": "2022-02-27T17:41:58.777Z",
+            "created": "2022-02-12T09:32:51.836Z",
+            "_id": "dff2d2ec-177d-4907-87ad-5c4a7f67ad57",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\" :\"pauladams@gmail.com\",\n    \"password\": \"password\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "388315a2-12b4-4304-b691-84f13980e211",
+            "sortNum": 40000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnQiOnsiaWQiOiI2MjFiYjdjMzEzNWYyNzdkMzViNGZmY2MifSwiaWF0IjoxNjQ1OTgzNzE4fQ.FJ61TQRuszEQ0ePrsHY1GpcH_HT3eh5Aq5usRzC3mG4"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "Get Client Data",
+            "url": "localhost:5000/api/auth/getclient",
+            "method": "POST",
+            "modified": "2022-02-27T17:42:13.924Z",
+            "created": "2022-02-12T09:32:51.836Z",
+            "_id": "6dc9b12a-d482-423a-886a-4c9a3f8c4214",
+            "params": [],
+            "tests": []
+        },
+        {
+            "containerId": "4e8f75f2-ffd5-4802-89be-a9f210327c11",
+            "sortNum": 50000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjbGllbnQiOnsiaWQiOiI2MjFiYjdjMzEzNWYyNzdkMzViNGZmY2MifSwiaWF0IjoxNjQ1OTgzNzE4fQ.FJ61TQRuszEQ0ePrsHY1GpcH_HT3eh5Aq5usRzC3mG4"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "Get all complaints",
+            "url": "localhost:5000/api/notes/fetchallcomplaints",
+            "method": "GET",
+            "modified": "2022-02-27T17:50:38.918Z",
+            "created": "2022-02-12T09:32:51.836Z",
+            "_id": "275387bf-a210-401c-b3d1-88adaf5b8137",
+            "params": [],
+            "tests": []
+        },
+        {
+            "containerId": "388315a2-12b4-4304-b691-84f13980e211",
+            "sortNum": 70000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "Create a new Service Provider",
+            "url": "localhost:5000/api/auth/createcompany",
+            "method": "POST",
+            "modified": "2022-02-27T17:53:34.031Z",
+            "created": "2022-02-12T10:08:06.418Z",
+            "_id": "ba1f4265-fdc1-4e52-8a14-fea8a1582f21",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\" : \"SAMA\",\n    \"email\" : \"samaodr2@gmail.com\",\n    \"phone\" : \"8473645363\",\n    \"address\":\"Bangalore\",\n    \"submitApi\" : \"https://sama.live/api/submit\",\n    \"password\":\"password\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "388315a2-12b4-4304-b691-84f13980e211",
+            "sortNum": 80000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "Service Provider Login",
+            "url": "localhost:5000/api/auth/companylogin",
+            "method": "POST",
+            "modified": "2022-02-27T17:53:48.246Z",
+            "created": "2022-02-12T10:17:22.385Z",
+            "_id": "35879683-39b2-42fc-8949-f1e8fa6ab526",
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"email\":\"samaodr2@gmail.com\",\n    \"password\":\"password\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "containerId": "388315a2-12b4-4304-b691-84f13980e211",
+            "sortNum": 90000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55Ijp7ImlkIjoiNjIxYmI4ZTE3ZWJlMWE4YmVmMzIxZDNlIn0sImlhdCI6MTY0NTk4NDEwOH0.RUFbiS6ezOBruSh7NDXZmOMmQ0EBiRY5boLpKFs4lAg"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "Get Service Provider Data",
+            "url": "localhost:5000/api/auth/getcompany",
+            "method": "POST",
+            "modified": "2022-02-27T17:48:41.544Z",
+            "created": "2022-02-12T10:24:14.459Z",
+            "_id": "99edb30f-d695-4e16-8d90-7fb223221e1e",
+            "params": [],
+            "tests": []
+        },
+        {
+            "containerId": "4e8f75f2-ffd5-4802-89be-a9f210327c11",
+            "sortNum": 100000,
+            "headers": [
+                {
+                    "name": "Accept",
+                    "value": "*/*"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "Thunder Client (https://www.thunderclient.com)"
+                },
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "auth-token",
+                    "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb21wYW55Ijp7ImlkIjoiNjIxYmJhOWVhNzUxYmY2NjIwYzJhZTIxIn0sImlhdCI6MTY0NTk4NDQyOH0.zx3pdA8fwyEIaWD7_j7V-my5aTasZehdUp4RQZGePCI"
+                }
+            ],
+            "colId": "481813a8-925c-4184-a7df-a9809ef146dd",
+            "name": "Get complaints listed to a particular service provider",
+            "url": "localhost:5000/api/notes/fetchCC",
+            "method": "GET",
+            "modified": "2022-02-27T17:54:05.836Z",
+            "created": "2022-02-21T17:22:06.496Z",
+            "_id": "aa64a95b-5f18-4fb0-bf0b-141234fae8a6",
+            "params": [],
+            "tests": []
+        }
+    ]
+}
