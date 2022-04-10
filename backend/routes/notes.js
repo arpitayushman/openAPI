@@ -8,7 +8,7 @@ const cByc = require('../models/complaintDbComp');
 const { body, validationResult } = require('express-validator');
 const fetchcompany = require('../middleware/fetchcompany');
 const company = require('../models/company');
-// const complaint = require('../models/complaint');
+const { SequentialRoundRobin } = require('round-robin-js');
 
 
 //Route 1: Get all the complaints using get request
@@ -189,7 +189,7 @@ router.put('/updatecomplaint/:id', fetchcompany, async (req, res) => {
         // console.log(idOfCompanyComplaint+"");
         // console.log(companyNote.respondentName);
         // note = await cByc.findByIdAndUpdate(idOfCompanyComplaint, { $set: compNote }, { new: true })
-        
+
 
 
     } catch (error) {
@@ -207,9 +207,9 @@ router.put('/updatecomplaint/:id', fetchcompany, async (req, res) => {
 router.post('/fetchcasestatus', fetchuser, async (req, res) => {
     const { requestId } = req.body;
     try {
-        const complaint = await cByc.findOne({requestId});
+        const complaint = await cByc.findOne({ requestId });
         let status = complaint.legalStatus;
-        if(status.length == 0){
+        if (status.length == 0) {
             status = "Case Status is not yet updated by the Service Provider, Kindly wait for 24 hours.";
         }
         console.log(status);
@@ -222,9 +222,27 @@ router.post('/fetchcasestatus', fetchuser, async (req, res) => {
     }
 });
 
-
-
-
-
-
+let staticIndex = 0;
+// if(staticIndex == companies.length-1)staticIndex = 0;
+//Route 5-- Fetch all companies
+router.get('/fetchcompanies', async (req, res) => {
+    try {
+        const companies = await Company.find();
+        // let arr = companies;
+        // console.log(typeof companies);
+        // const sequentialTable = new SequentialRoundRobin(companies);
+        // res.json(sequentialTable.next());
+        console.log(staticIndex);
+        // console.log(companies.length);
+        companies.sort((a, b) => (a.name > b.name) ? 1 : -1)
+        res.json(companies[staticIndex++]);
+        if(staticIndex == companies.length){
+            staticIndex = 0;
+        }
+    }
+    catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error");
+    }
+});
 module.exports = router;
